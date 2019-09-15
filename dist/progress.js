@@ -32,13 +32,14 @@ const AnimatePercentage = React.memo(({
 });
 
 function _Progress({
-  progress,
+  progress = 0,
   strokeWidth = 4,
   ballStrokeWidth = 16,
   reduction = 0.25,
   transitionDuration = 0.5,
   transitionTimingFunction = 'ease',
   background = '#dde2e9',
+  startFromTop = false,
   hideBall = false,
   hideValue = false,
   gradient = [{
@@ -57,7 +58,7 @@ function _Progress({
   const center = width / 2;
   const height = 200 || center + center * Math.cos(reduction * Math.PI);
   const [unique] = React.useState(() => Math.random().toString());
-  const rotate = 90 + 180 * reduction;
+  const rotate = (startFromTop ? -90 : 90) + 180 * reduction;
   const r = center - strokeWidth / 2 - ballStrokeWidth / 2;
   const circumference = Math.PI * r * 2;
   const offset = circumference * (100 - progress * (1 - reduction)) / 100;
